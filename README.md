@@ -60,15 +60,9 @@ aws_access_key_id=KEY
 aws_secret_access_key=KEY
 ```
 
-3. Clone this repo
+3. Be sure you are using node version `v8.9.3` (works with `v8.x`)
 
-4. Customize `index.js` and `scenarioProcessor.js` to suit your needs
-
-5. Be sure you are using node version `v8.9.3` (works with `v8.x`)
-
-6. Run `npm install`
-
-7. Export these ENV variables:
+4. Export these ENV variables:
 ```
 export INFLUX_HOST=<your ip>
 export INFLUX_PASSWORD=<your password>
@@ -77,7 +71,7 @@ export INFLUX_DB=<the database>
 export TARGET_HOST=<target host>
 ```
 
-8. We've prepared a repo to show how to use whirlwind: [whirlwind-example](https://github.com/xolvio/whirlwind-example)
+5. We've prepared a repo to show how to use whirlwind: [whirlwind-example](https://github.com/xolvio/whirlwind-example)
 
 ## Optional steps:
 
