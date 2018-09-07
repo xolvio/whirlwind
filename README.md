@@ -62,7 +62,7 @@ aws_secret_access_key=KEY
 
 3. Clone this repo
 
-4. Customize `runTest.js` and `scenarioProcessor.js` to suit your needs
+4. Customize `index.js` and `scenarioProcessor.js` to suit your needs
 
 5. Be sure you are using node version `v8.9.3` (works with `v8.x`)
 
