@@ -1,3 +1,5 @@
+// each time you change something inside processor you need to redeploy Lambda
+
 const Influx = require("influx");
 const throttle = require("lodash/throttle");
 const get = require("lodash/get");
@@ -15,7 +17,7 @@ const influx = new Influx.InfluxDB({
     {
       measurement: "RequestSent",
       fields: {
-        test: Influx.FieldType.STRING
+        url: Influx.FieldType.STRING
       },
       tags: []
     },
@@ -77,7 +79,7 @@ module.exports.logRequestSentToInflux = (requestParams, context, ee, next) => {
   // here we log request send timestamp
   points.push({
     measurement: "RequestSent",
-    fields: { test: "A" },
+    fields: { url: requestParams.url },
     tags: {},
     timestamp: new Date().getTime()
   });
