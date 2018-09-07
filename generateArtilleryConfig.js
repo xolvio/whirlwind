@@ -29,7 +29,7 @@ module.exports.generateArtilleryScript = function (options) {
         errorMeasurementName: 'ClientSideErrors',
         testRunId: '1227',
         tags: {
-          environment: 'przemekMBP',
+          environment: 'myHostname',
           host: process.env.TARGET_HOST
         },
         influx: {
