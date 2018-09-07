@@ -77,6 +77,8 @@ export INFLUX_DB=<the database>
 export TARGET_HOST=<target host>
 ```
 
+8. We've prepared a repo to show how to use whirlwind: [whirlwind-example](https://github.com/xolvio/whirlwind-example)
+
 ## Optional steps:
 
 ## Route all Lambda traffic thru 1 IP address
