@@ -1,5 +1,7 @@
 # Whirlwind
 
+We've prepared a repo to show how to use whirlwind: [whirlwind-example](https://github.com/xolvio/whirlwind-example)
+
 ## Getting Started
 
 1. Set permission policy for an IAM user with the following config:
