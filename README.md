@@ -114,3 +114,5 @@ Also [this](http://www.andremiller.net/content/grafana-and-influxdb-quickstart-o
 * [x] Instructions for Grafana
 * [x] DDOS Attack support
 * [x] Rename `LOADTEST_TARGET` to `TARGET_HOST`
+* [ ] Randomize spikes
+
