@@ -39,7 +39,7 @@ functions:
 #      subnetIds:
 #        - subnet-XXXXXXXXXXXXXX
     environment:
-          INFLUX_HOST: ${env:INFLUX_HOST} # it's possible to pass env variables to lambda functions
-          INFLUX_USER: ${env:INFLUX_USER} # you can also pass your env variables to lambda variables
-          INFLUX_PASSWORD: ${env:INFLUX_PASSWORD}
-          INFLUX_DB: ${env:INFLUX_DB}
+#          INFLUX_HOST: ${env:INFLUX_HOST} # it's possible to pass env variables to lambda functions
+#          INFLUX_USER: ${env:INFLUX_USER} # you can also pass your env variables to lambda variables
+#          INFLUX_PASSWORD: ${env:INFLUX_PASSWORD}
+#          INFLUX_DB: ${env:INFLUX_DB}
