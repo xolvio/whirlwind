@@ -1,4 +1,4 @@
-# ![Whirlwind Logo](./images/whirlwind.svg?raw=true) <br/>Whirlwind
+# ![Whirlwind Logo](./images/whirlwind.svg?sanitize=true) <br/>Whirlwind
  
 Whirlwind is a performance testing library that allows you to run the following higher order functions:
 
