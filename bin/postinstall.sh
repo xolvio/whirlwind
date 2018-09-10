@@ -5,5 +5,5 @@
 if [ ! -f "../../serverless.yml" ]
 then
     cp serverlessExample.yml ../../serverless.yml
-	npm install
+	#npm install
 fi
