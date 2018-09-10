@@ -15,6 +15,7 @@
     "artillery"
   ],
   "dependencies": {
+    "JSONPath": "^0.11.2",
     "artillery-core": "^3.0.0",
     "artillery-plugin-influxdb": "^0.9.0",
     "csv-parse": "^1.1.7",
