@@ -4,7 +4,6 @@
 # otherwise we would get into an infinite loop
 if [ ! -f "../../serverless.yml" ]
 then
+    cp serverlessExample.yml ../../serverless.yml
 	npm install
 fi
-
-cp serverlessExample.yml ../../serverless.yml
