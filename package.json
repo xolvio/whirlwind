@@ -1,7 +1,7 @@
 {
   "name": "whirlwind",
   "version": "1.0.0",
-  "description": "Artilary based performance testing that runs on the serverless framework, supporting high-order functions like Stress, Soak, Load, Spike and DDOS attacks",
+  "description": "Artillery based performance testing that runs on the serverless framework, supporting high-order functions like Stress, Soak, Load, Spike and DDOS attacks",
   "repository": "n/a",
   "license": "ISC",
   "main": "index.js",
