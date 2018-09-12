@@ -1286,7 +1286,6 @@ const api = {
           impl.runPerformance(now, script, context, callback);
         }
       }
-      return callback(null)
     } catch (err) {
       // You probably still want to log it.
       console.error(err);
