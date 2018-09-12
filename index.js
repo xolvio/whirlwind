@@ -78,13 +78,19 @@ class Whirlwind {
     }
   }
 
-  runTest(scenarios, processorFilename = false, local = false) {
+  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false) {
     if (!this.phases) {
       throw "You need to generate phases by running whirlwind.generatePhases()";
     }
     const script = generateArtilleryScript({});
     script.config.phases = this.phases;
     script.scenarios = scenarios;
+
+    if (disableSslCertificateChecking) {
+      script.config.tls = {
+        "rejectUnauthorized": false
+      }
+    }
 
     if (processorFilename) {
       script.config.processor = processorFilename;
