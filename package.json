@@ -20,16 +20,16 @@
     "csv-parse": "^1.1.7",
     "faker": "^4.1.0",
     "influx": "^5.0.7",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "artillery": "^1.6.0-22",
+    "serverless": "^1.30.3",
+    "serverless-artillery": "^0.3.2",
+    "prettier": "^1.14.2"
   },
   "scripts": {
     "deploy": "slsart deploy",
     "postinstall": "./bin/postinstall.sh"
   },
   "devDependencies": {
-    "artillery": "^1.6.0-22",
-    "serverless": "^1.30.3",
-    "serverless-artillery": "^0.3.2",
-    "prettier": "^1.14.2"
   }
 }

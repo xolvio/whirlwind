@@ -36,6 +36,10 @@ class Whirlwind {
     child.stdout.on("data", function(data) {
       console.log(data.toString());
     });
+
+    child.stderr.on("data", function(data) {
+      console.log(data.toString());
+    });
   }
 
   generatePhases(testParams) {
