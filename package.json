@@ -15,24 +15,21 @@
     "artillery"
   ],
   "dependencies": {
-    "JSONPath": "^0.11.2",
     "artillery-core": "^3.0.0",
     "artillery-plugin-influxdb": "^0.9.0",
     "csv-parse": "^1.1.7",
     "faker": "^4.1.0",
-    "graphql-tag": "^2.9.2",
     "influx": "^5.0.7",
-    "lodash": "^4.17.10",
-    "prettier": "^1.14.2",
-    "uuid": "^3.3.2",
-    "artillery": "^1.6.0-22",
-    "serverless": "^1.30.3",
-    "serverless-artillery": "^0.3.2"
+    "lodash": "^4.17.10"
   },
   "scripts": {
     "deploy": "slsart deploy",
     "postinstall": "./bin/postinstall.sh"
   },
   "devDependencies": {
+    "artillery": "^1.6.0-22",
+    "serverless": "^1.30.3",
+    "serverless-artillery": "^0.3.2",
+    "prettier": "^1.14.2"
   }
 }

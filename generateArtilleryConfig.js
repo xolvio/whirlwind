@@ -87,7 +87,7 @@ module.exports.generateStressPhases = function(
   }
   const phases = [];
 
-  phases.push(warmUpPhase);
+  // phases.push(warmUpPhase);
 
   for (let phase = 0; phase < numberOfSteps; phase += 1) {
     let startArrivalRateForThisPhase = 0;
@@ -133,7 +133,7 @@ module.exports.generateLoadPhases = function(
   rampUpTime = 5 * 60
 ) {
   return [
-    warmUpPhase,
+    // warmUpPhase,
     {
       duration: rampUpTime,
       arrivalRate: startLoad,
@@ -144,7 +144,7 @@ module.exports.generateLoadPhases = function(
 
 module.exports.generateSoakPhases = function(load = 10, duration = 5 * 60) {
   return [
-    warmUpPhase,
+    // warmUpPhase,
     {
       duration: duration,
       arrivalRate: load
@@ -161,7 +161,7 @@ module.exports.generateSpikePhases = function(
 ) {
   const phases = [];
 
-  phases.push(warmUpPhase);
+  // phases.push(warmUpPhase);
 
   for (let phase = 0; phase < numberOfSpikes; phase += 1) {
     const thisPhaseTotalDuration = loadTestDuration / numberOfSpikes;
