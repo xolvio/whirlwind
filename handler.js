@@ -1271,19 +1271,27 @@ const api = {
    * @param callback The Lambda callback to notify errors and results to
    */
   run: (script, context, callback) => {
-    if (impl.validScript(script, context, callback)) {
-      const now = Date.now();
-      if (!script._genesis) {
-        script._genesis = now; // eslint-disable-line no-param-reassign
+    try {
+      if (impl.validScript(script, context, callback)) {
+        const now = Date.now();
+        if (!script._genesis) {
+          script._genesis = now; // eslint-disable-line no-param-reassign
+        }
+        if (
+          script.mode === constants.modes.ACC ||
+          script.mode === constants.modes.ACCEPTANCE
+        ) {
+          impl.runAcceptance(now, script, context, callback);
+        } else {
+          impl.runPerformance(now, script, context, callback);
+        }
       }
-      if (
-        script.mode === constants.modes.ACC ||
-        script.mode === constants.modes.ACCEPTANCE
-      ) {
-        impl.runAcceptance(now, script, context, callback);
-      } else {
-        impl.runPerformance(now, script, context, callback);
-      }
+      return callback(null, 'Success')
+    } catch (err) {
+      // You probably still want to log it.
+      console.error(err);
+      // Return happy despite all the hardships you went through.
+      return callback(null, 'Execution failed');
     }
   }
 };
