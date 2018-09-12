@@ -1259,6 +1259,9 @@ const impl = {
     }
   }
 };
+
+var lastReqId;
+
 const api = {
   /**
    * This Lambda produces load according to the given specification.
@@ -1272,6 +1275,20 @@ const api = {
    */
   run: (script, context, callback) => {
     try {
+
+      // We check if the lambda is being retried.
+      // If that's the case, we kill it
+      // We leverage lambda's quirks:
+      // - lambda's node process reuse which keeps vars instanced
+      // - retried lambdas have the same request id
+      // Hopefully Amz will someday allow us to disable autoretries
+      if ( lastReqId == context.awsRequestId ) {
+        console.log('Lambda auto retry detected. Aborting.');
+        return context.succeed();
+      } else {
+        lastReqId = context.awsRequestId;
+      };
+
       if (impl.validScript(script, context, callback)) {
         const now = Date.now();
         if (!script._genesis) {
