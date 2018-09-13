@@ -100,6 +100,7 @@ class Whirlwind {
       script.config.processor = processorFilename;
     }
 
+    script.config.http = {};
     script.config.http.timeout = 60;
 
     const totalTime = calculateTotalTime(this.phases);
