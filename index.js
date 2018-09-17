@@ -100,8 +100,8 @@ class Whirlwind {
       script.config.processor = processorFilename;
     }
 
-    script.config.http = {};
-    script.config.http.timeout = 60;
+    // script.config.http = {};
+    // script.config.http.timeout = 60;
 
     const totalTime = calculateTotalTime(this.phases);
     console.log("Total load test duration: ", totalTime);
