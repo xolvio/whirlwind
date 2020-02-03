@@ -23,7 +23,7 @@ class Whirlwind {
   constructor(artilleryCommand) {
     this.artilleryCommand = artilleryCommand || 'artillery';
   }
-  
+
   executeArtillery(fileName, local = false) {
     if (process.env.TARGET_HOST) {
       console.log("Starting test on target:", process.env.TARGET_HOST);
@@ -95,11 +95,11 @@ class Whirlwind {
     });
   }
 
-  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false) {
+  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
     if (!this.phases) {
       throw "You need to generate phases by running whirlwind.generatePhases()";
     }
-    const script = generateArtilleryScript({});
+    const script = generateArtilleryScript(optionOverrides);
     script.config.phases = this.phases;
     if (this.variables) {
       script.config.variables = this.variables;
