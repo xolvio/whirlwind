@@ -20,6 +20,10 @@ const saveScriptToFile = (script, fileName) => {
 };
 
 class Whirlwind {
+  constructor(artilleryCommand) {
+    this.artilleryCommand = artilleryCommand || 'artillery';
+  }
+  
   executeArtillery(fileName, local = false) {
     if (process.env.TARGET_HOST) {
       console.log("Starting test on target:", process.env.TARGET_HOST);
@@ -29,7 +33,7 @@ class Whirlwind {
     const fullFilePath = `${__dirname}/../../${fileName}`;
 
     if (local) {
-      child = exec(`cd ${__dirname} && artillery run ${fullFilePath}`);
+      child = exec(`cd ${__dirname} && ${this.artilleryCommand} run ${fullFilePath}`);
     } else {
       child = exec(`cd ${__dirname} && slsart invoke -p ${fullFilePath}`);
     }
