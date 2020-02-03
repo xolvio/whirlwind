@@ -82,12 +82,24 @@ class Whirlwind {
     }
   }
 
+  // TODO config should be a separate class and this should be responsibility of that class
+  // variables: array of { name: string, values: string[] } objects
+  generateVariables(variables) {
+    this.variables = {};
+    variables.forEach(variable => {
+      this.variables[variable.name] = variable.values;
+    });
+  }
+
   runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false) {
     if (!this.phases) {
       throw "You need to generate phases by running whirlwind.generatePhases()";
     }
     const script = generateArtilleryScript({});
     script.config.phases = this.phases;
+    if (this.variables) {
+      script.config.variables = this.variables;
+    }
     script.scenarios = scenarios;
 
     if (disableSslCertificateChecking) {
