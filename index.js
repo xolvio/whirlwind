@@ -22,6 +22,9 @@ const saveScriptToFile = (script, fileName) => {
 class Whirlwind {
   constructor(artilleryCommand) {
     this.artilleryCommand = artilleryCommand || 'artillery';
+    this.runTest = this.runTest.bind(this);
+    this.runTestAsync = this.runTestAsync.bind(this);
+    this.prepareAndSaveScript = this.prepareAndSaveScript.bind(this);
   }
 
   executeArtillery(fileName, local = false) {
@@ -43,6 +46,21 @@ class Whirlwind {
 
     child.stderr.on("data", function(data) {
       console.log(data.toString());
+    });
+  }
+
+  async executeArtilleryAsync(fileName, local = false) {
+    if (process.env.TARGET_HOST) {
+      console.log("Starting test on target:", process.env.TARGET_HOST);
+    }
+
+    const fullFilePath = `${__dirname}/../../${fileName}`;
+
+    const processCommand = local ? `cd ${__dirname} && ${this.artilleryCommand} run ${fullFilePath}` : `cd ${__dirname} && slsart invoke -p ${fullFilePath}`;
+    return new Promise(async resolve => {
+      exec(processCommand, (err, stout, sterr) => {
+        resolve(err ? stout : sterr)
+      });
     });
   }
 
@@ -95,7 +113,7 @@ class Whirlwind {
     });
   }
 
-  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
+  prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides) {
     if (!this.phases) {
       throw "You need to generate phases by running whirlwind.generatePhases()";
     }
@@ -124,8 +142,17 @@ class Whirlwind {
 
     const fileName = "scriptLoadTest.json";
     saveScriptToFile(script, fileName);
+    return fileName;
+  }
 
+  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
+    const fileName = this.prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides);
     this.executeArtillery(fileName, local);
+  }
+
+  async runTestAsync(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
+    const fileName = this.prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides);
+    return (await this.executeArtilleryAsync(fileName, local));
   }
 }
 
