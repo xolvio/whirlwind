@@ -59,7 +59,7 @@ class Whirlwind {
     const processCommand = local ? `cd ${__dirname} && ${this.artilleryCommand} run ${fullFilePath}` : `cd ${__dirname} && slsart invoke -p ${fullFilePath}`;
     return new Promise(async resolve => {
       exec(processCommand, (err, stout, sterr) => {
-        resolve(err ? stout : sterr)
+        resolve(err ? sterr : stout)
       });
     });
   }
