@@ -1,6 +1,6 @@
 {
   "name": "whirlwind",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Artillery based performance testing that runs on the serverless framework, supporting high-order functions like Stress, Soak, Load, Spike and DDOS attacks",
   "repository": "https://github.com/xolvio/whirlwind",
   "license": "ISC",
