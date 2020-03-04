@@ -20,6 +20,13 @@ const saveScriptToFile = (script, fileName) => {
 };
 
 class Whirlwind {
+  constructor(artilleryCommand) {
+    this.artilleryCommand = artilleryCommand || 'artillery';
+    this.runTest = this.runTest.bind(this);
+    this.runTestAsync = this.runTestAsync.bind(this);
+    this.prepareAndSaveScript = this.prepareAndSaveScript.bind(this);
+  }
+
   executeArtillery(fileName, local = false) {
     if (process.env.TARGET_HOST) {
       console.log("Starting test on target:", process.env.TARGET_HOST);
@@ -29,7 +36,7 @@ class Whirlwind {
     const fullFilePath = `${__dirname}/../../${fileName}`;
 
     if (local) {
-      child = exec(`cd ${__dirname} && artillery run ${fullFilePath}`);
+      child = exec(`cd ${__dirname} && ${this.artilleryCommand} run ${fullFilePath}`);
     } else {
       child = exec(`cd ${__dirname} && slsart invoke -p ${fullFilePath}`);
     }
@@ -39,6 +46,21 @@ class Whirlwind {
 
     child.stderr.on("data", function(data) {
       console.log(data.toString());
+    });
+  }
+
+  async executeArtilleryAsync(fileName, local = false) {
+    if (process.env.TARGET_HOST) {
+      console.log("Starting test on target:", process.env.TARGET_HOST);
+    }
+
+    const fullFilePath = `${__dirname}/../../${fileName}`;
+
+    const processCommand = local ? `cd ${__dirname} && ${this.artilleryCommand} run ${fullFilePath}` : `cd ${__dirname} && slsart invoke -p ${fullFilePath}`;
+    return new Promise(async resolve => {
+      exec(processCommand, (err, stout, sterr) => {
+        resolve(err ? sterr : stout)
+      });
     });
   }
 
@@ -82,12 +104,24 @@ class Whirlwind {
     }
   }
 
-  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false) {
+  // TODO config should be a separate class and this should be responsibility of that class
+  // variables: array of { name: string, values: string[] } objects
+  generateVariables(variables) {
+    this.variables = {};
+    variables.forEach(variable => {
+      this.variables[variable.name] = variable.values;
+    });
+  }
+
+  prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides) {
     if (!this.phases) {
       throw "You need to generate phases by running whirlwind.generatePhases()";
     }
-    const script = generateArtilleryScript({});
+    const script = generateArtilleryScript(optionOverrides);
     script.config.phases = this.phases;
+    if (this.variables) {
+      script.config.variables = this.variables;
+    }
     script.scenarios = scenarios;
 
     if (disableSslCertificateChecking) {
@@ -108,8 +142,17 @@ class Whirlwind {
 
     const fileName = "scriptLoadTest.json";
     saveScriptToFile(script, fileName);
+    return fileName;
+  }
 
+  runTest(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
+    const fileName = this.prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides);
     this.executeArtillery(fileName, local);
+  }
+
+  async runTestAsync(scenarios, processorFilename = false, local = false, disableSslCertificateChecking = false, optionOverrides = {}) {
+    const fileName = this.prepareAndSaveScript(scenarios, processorFilename, disableSslCertificateChecking, optionOverrides);
+    return (await this.executeArtilleryAsync(fileName, local));
   }
 }
 
